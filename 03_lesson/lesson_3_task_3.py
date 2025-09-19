@@ -8,3 +8,4 @@ mailing = Mailing(from_address, to_address, 500, 12345)
 
 print(to_address)
 print(mailing)
+

@@ -4,6 +4,7 @@ class Smartphone:
         self.model = model
         self.number = number
 
+
     # def GetBrand(self):
     #     return(self.brand)
 
