@@ -1,10 +1,10 @@
 from api_YouGile import YouGile
 
 from credentials import (url, login, password, companyId, new_project,
-                         empty_title, testing_title, edit_title,
+                         empty_title, testing_title, edit_title, api_key,
                          edited_title, deleted_status, user, wrong_user)
 
-api = YouGile(url, login, password, companyId)
+api = YouGile(url, api_key=api_key)
 
 def test_post_project_positive():
 
@@ -12,11 +12,13 @@ def test_post_project_positive():
     len_before = len(projects_before)
 
     result = api.post_project(new_project, user)
-    new_id = result.json()['id']
+    assert result.status_code == 201
+
+    response_data = result.json()
+    new_id = response_data['id']
 
     projects_after = api.get_project_list()
     len_after = len(projects_after)
-    assert result.status_code == 201
     assert len_after - len_before == 1
     assert projects_after[-1]['title'] == new_project
     assert projects_after[-1]['id'] == new_id
@@ -35,10 +37,11 @@ def test_post_project_negative():
     assert len_after - len_before == 0
 
 
-def test_get_project_with_id_positive():
+def test_get_project_by_id_positive():
     result = api.post_project(testing_title, user)
-    project_id = result.json()['id']
+    assert result.status_code == 201
 
+    project_id = result.json()['id']
     new_project = api.get_project_by_id(project_id)
 
     assert new_project.status_code == 200
@@ -46,7 +49,7 @@ def test_get_project_with_id_positive():
     assert new_project.json()['users'] == user
 
 
-def test_get_project_with_id_negative():
+def test_get_project_by_id_negative():
 
     new_project = api.get_project_by_id("777")
 
@@ -55,6 +58,7 @@ def test_get_project_with_id_negative():
 
 def test_put_edit_project_positive():
     result = api.post_project(edit_title, user)
+    assert result.status_code == 200
     project_id = result.json()['id']
 
     edited = api.put_edit_project(project_id, deleted_status, edited_title, user)

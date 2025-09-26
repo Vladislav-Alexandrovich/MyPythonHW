@@ -2,9 +2,14 @@ import requests
 
 
 class YouGile:
-    def __init__(self, url, login, password, company):
+    def __init__(self, url, login=None, password=None, company=None, api_key=None):
         self.url = url
         self.token = self.get_token(login, password, company)
+
+        if api_key:
+            self.token=api_key
+        else:
+            self.token=self.get_token(login, password, company)
 
     def get_token(self, login, password, company):
         payload = {
@@ -14,13 +19,15 @@ class YouGile:
         }
         resp = requests.post(self.url + 'auth/keys', json=payload)
 
-        response = resp.json()['key']
-        return response
+        response_data = resp.json()
+        if 'key' not in response_data:
+            raise KeyError(f"'key' not found in response. Available keys: {list(response_data.keys())}")
+        return response_data['key']
 
     def get_project_list(self):
         key = self.token
         headers = {
-            'Authorization': 'Bearer + key'
+            'Authorization': f'Bearer {key}'
         }
         resp = requests.get(self.url + 'projects', headers=headers)
         return resp.json()['content']
@@ -28,7 +35,7 @@ class YouGile:
     def post_project(self, title, users):
         key = self.token
         headers = {
-            'Authorization': 'Bearer + key',
+            'Authorization': f'Bearer {key}',
             'Content-Type': 'application/json'
         }
         project = {
@@ -41,15 +48,15 @@ class YouGile:
     def get_project_by_id(self, project_id):
         key = self.token
         headers = {
-            'Authorization': 'Bearer + key'
+            'Authorization': f'Bearer {key}'
         }
-        resp = requests.get(self.url + 'projects/{project_id}', headers=headers)
+        resp = requests.get(self.url + f'projects/{project_id}', headers=headers)
         return resp
 
     def put_edit_project(self, project_id, new_deleted, new_title, new_users):
         key = self.token
         headers = {
-            'Authorization': 'Bearer + key',
+            'Authorization': f'Bearer {key}',
             'Content-Type': 'application/json'
         }
         project = {
@@ -57,5 +64,5 @@ class YouGile:
             "title": new_title,
             "users": new_users
         }
-        resp = requests.put(self.url + 'projects/{project_id}', headers=headers, json=project)
+        resp = requests.put(self.url + f'projects/{project_id}', headers=headers, json=project)
         return resp
