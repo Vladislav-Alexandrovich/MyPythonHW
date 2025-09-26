@@ -4,7 +4,7 @@ import requests
 class YouGile:
     def __init__(self, url, login=None, password=None, company=None, api_key=None):
         self.url = url
-        self.token = self.get_token(login, password, company)
+        # self.token = self.get_token(login, password, company)
 
         if api_key:
             self.token=api_key
@@ -18,6 +18,8 @@ class YouGile:
             "companyId": company
         }
         resp = requests.post(self.url + 'auth/keys', json=payload)
+        if resp.status_code != 200:
+            raise Exception(f"Failed to get token.Status code:{resp.status_code}, Response:{resp.text}")
 
         response_data = resp.json()
         if 'key' not in response_data:

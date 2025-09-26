@@ -23,6 +23,7 @@ def test_post_project_positive():
     assert projects_after[-1]['title'] == new_project
     assert projects_after[-1]['id'] == new_id
 
+    api.put_edit_project(new_id, True, new_project, user)
 
 def test_post_project_negative():
     projects_before = api.get_project_list()
@@ -48,6 +49,7 @@ def test_get_project_by_id_positive():
     assert new_project.json()['title'] == testing_title
     assert new_project.json()['users'] == user
 
+    api.put_edit_project(project_id, True, testing_title, user)
 
 def test_get_project_by_id_negative():
 
@@ -58,7 +60,7 @@ def test_get_project_by_id_negative():
 
 def test_put_edit_project_positive():
     result = api.post_project(edit_title, user)
-    assert result.status_code == 200
+    assert result.status_code == 201
     project_id = result.json()['id']
 
     edited = api.put_edit_project(project_id, deleted_status, edited_title, user)
@@ -66,6 +68,8 @@ def test_put_edit_project_positive():
     assert edited.status_code == 200
     project_title = api.get_project_by_id(project_id).json()['title']
     assert project_title == edited_title
+
+    api.put_edit_project(project_id, True, edited_title, user)
 
 
 def test_put_edit_project_negative():
