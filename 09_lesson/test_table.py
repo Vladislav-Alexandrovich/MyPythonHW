@@ -1,8 +1,7 @@
 from sqlalchemy import create_engine, inspect, text
 
-db_connection_string = "postgresql://postgres:Study2024@localhost:5432/mybase"
+db_connection_string =
 db = create_engine(db_connection_string)
-
 
 def test_db_connection():
     inspector = inspect(db)
