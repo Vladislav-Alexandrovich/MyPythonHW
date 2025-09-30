@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, inspect, text
 
+
 db_connection_string =
 db = create_engine(db_connection_string)
 
