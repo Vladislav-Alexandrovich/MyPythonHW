@@ -14,7 +14,6 @@ print_number(3)
 print_number(5)
 
 
-
 # def print_number(_):
 #     print(_)
 #
