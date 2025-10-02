@@ -21,13 +21,14 @@ def test_insert():
     transaction = connection.begin()
 
     sql = text("INSERT INTO subject(\"subject_id\", \"subject_title\")"
-               "VALUES (:new_id, ;new_title)")
-    connection.execute(sql, {"new_id": "17"}, {"new_title": "Art"})
+               "VALUES (:new_id, :new_title)")
+    connection.execute(sql, {"new_id": "17", "new_title": "Art"})
 
-    # sql = text("INSERT INTO subject(\"subject_id\") VALUES (:new_id)")
-    # connection.execute(sql, {"new_id": "17"})
-    # sql = text("INSERT INTO subject(\"subject_title\") VALUES (:new_title)")
-    # connection.execute(sql, {"new_title": "Art"})
+    # sql_id = text("INSERT INTO subject(subject_id) VALUES (:new_id)")
+    # connection.execute(sql_id, {"new_id": "17"})
+
+    # sql_title = text("INSERT INTO subject(subject_title) VALUES (:new_title)")
+    # connection.execute(sql_title, {"new_title": "Art"})
 
     transaction.commit()
     connection.close()
