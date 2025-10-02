@@ -25,8 +25,7 @@ def test_insert():
     connection.execute(sql, {"new_id": "17", "new_title": "Art"})
 
     # sql_id = text("INSERT INTO subject(subject_id) VALUES (:new_id)")
-    # connection.execute(sql_id, {"new_id": "17"})
-
+    # connection.execute(sql_id, {"new_id": "17"}
     # sql_title = text("INSERT INTO subject(subject_title) VALUES (:new_title)")
     # connection.execute(sql_title, {"new_title": "Art"})
 
