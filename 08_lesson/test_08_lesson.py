@@ -87,3 +87,4 @@ def test_put_edit_project_negative():
     api.put_edit_project(project_id, True, edited_title, user)
 
     assert edited.status_code == 400
+
