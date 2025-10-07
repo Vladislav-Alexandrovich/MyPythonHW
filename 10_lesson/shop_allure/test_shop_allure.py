@@ -50,6 +50,7 @@ def test_shop(driver):
     total_price = Order_Page.get_total_price()
     expected_price: float = 58.29
 
-    assert total_price == expected_price
+    with allure.step("Проверить что значения равны"):
+        assert total_price == expected_price
 
     driver.quit()
