@@ -1,10 +1,16 @@
+"""
+Этот класс содержит функции оформления заказа интернет-магазина,
+переменные передаются из файла теста
+"""
+
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.webdriver import WebDriver
 
 
 class OrderPage:
     @allure.feature("CREATE")
-    def __init__(self, browser):
+    def __init__(self, browser: WebDriver) -> None:
         self.browser = browser
 
     @allure.feature("INPUT")
@@ -12,7 +18,7 @@ class OrderPage:
                  "Имя: {term1}"
                  "Фамилия:{term2},"
                  "Индекс {term3}")
-    def fill_order_details(self, term1: str, term2: str, term3: int):
+    def fill_order_details(self, term1: str, term2: str, term3: int) -> None:
         self.browser.find_element(By.CSS_SELECTOR,
                                   "#first-name").send_keys(term1)
         self.browser.find_element(By.CSS_SELECTOR,
@@ -30,8 +36,3 @@ class OrderPage:
         # price = value.split(": $")[1]
         total_price = float(value.split(": $")[1])
         return total_price
-
-    # def __init__(self, driver):
-    #     driver = webdriver.Firefox()
-    #     self.driver = driver
-    #     # driver.get("https://www.saucedemo.com/checkout-step-one.html")

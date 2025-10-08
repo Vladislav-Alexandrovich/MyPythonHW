@@ -5,11 +5,13 @@
 import allure
 import pytest
 from selenium import webdriver
+from selenium.webdriver.firefox.webdriver import WebDriver
+
 from calc_pages_allure.CalcPage import CalcPage
 
 
 @pytest.fixture
-def driver():
+def driver() -> None:
     driver = webdriver.Firefox()
     driver.implicitly_wait(3)
     driver.maximize_window()
@@ -28,7 +30,7 @@ def driver():
                     "должен совпадать с заданным")
 @allure.feature("TEST")
 @allure.step("Проверить что значения вычислений совпадают с заявленным")
-def test_calc_result(driver):
+def test_calc_result(driver: WebDriver) -> None:
 
     """
     Передаваемые данные для математических действий"

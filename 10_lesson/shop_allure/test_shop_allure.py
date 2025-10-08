@@ -32,7 +32,7 @@ def driver():
 @allure.description("Значения указанной стоимости"
                     "и суммы заказа должны быть одинаковы")
 @allure.feature("TEST")
-def test_shop(driver):
+def test_shop(driver) -> None:
     Auth_Page = AuthPage(driver)
     login: str = "standard_user"
     password: str = "secret_sauce"

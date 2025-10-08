@@ -1,5 +1,11 @@
+"""
+Этот класс содержит функции для тестирования медленного калькулятора,
+переменные передаются из файла теста
+"""
+
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -8,12 +14,12 @@ class CalcPage:
 
     @allure.feature("CREATE")
     @allure.step("Создание драйвера {browser}")
-    def __init__(self, browser):
+    def __init__(self, browser: WebDriver) -> None:
         self.browser = browser
 
     @allure.feature("OPEN")
     @allure.step("Открытие сайта калькулятора")
-    def open_calculator(self):
+    def open_calculator(self) -> None:
         self.browser.get(
             "https://bonigarcia.dev/"
             "selenium-webdriver-java/slow-calculator.html"
@@ -22,13 +28,13 @@ class CalcPage:
 
     @allure.feature("INPUT")
     @allure.step("Ввод значения задержки {term}")
-    def set_delay(self, term: int):
+    def set_delay(self, term: int) -> None:
         self.browser.find_element(By.ID, "delay").clear()
         self.browser.find_element(By.ID, "delay").send_keys(term)
 
     @allure.feature("CLICK")
     @allure.step("Клики по клавишам калькулятора {term1}, {term2}, {term3}")
-    def buttons_clicks(self, term1: int, term2: str, term3: int):
+    def buttons_clicks(self, term1: int, term2: str, term3: int) -> None:
         with allure.step("Клики по клавишам"):
             button_locator = "//span[text()='{}']"
 
@@ -51,16 +57,12 @@ class CalcPage:
                 self.browser.find_element(By.XPATH,
                                           "//span[text()='=']").click()
 
-        # self.browser.find_element(By.XPATH, "//span[text()='7']").click()
-        # self.browser.find_element(By.XPATH, "//span[text()='+']").click()
-        # self.browser.find_element(By.XPATH, "//span[text()='8']").click()
-        # self.browser.find_element(By.XPATH, "//span[text()='=']").click()
     @allure.feature("GET")
     @allure.step("Получение после ожидания {term}"
                  "значения результата {term2} ")
     def get_result(self, term: int, term2: int) -> int:
         with allure.step("Ожидание появления результата {term2}"):
-            waiter = WebDriverWait(self.browser, term)
+            waiter = WebDriverWait(self.browser, int(term) + 3)
             waiter.until(EC.text_to_be_present_in_element(
                 (By.CSS_SELECTOR, '[class="screen"]'), term2))
 
@@ -70,10 +72,3 @@ class CalcPage:
 
         with allure.step("Передача значения результата в тест {result}"):
             return result
-
-# driver = webdriver.Firefox()
-# def open_calc(self):
-#         self.driver.get(
-#             "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator")
-#         self.driver.fullscreen_window()
-#         self.browser.quit()
