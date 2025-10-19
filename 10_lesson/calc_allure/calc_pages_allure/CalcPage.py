@@ -2,7 +2,6 @@
 Этот класс содержит функции для тестирования медленного калькулятора,
 переменные передаются из файла теста
 """
-
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.webdriver import WebDriver

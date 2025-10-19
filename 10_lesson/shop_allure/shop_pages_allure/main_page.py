@@ -13,6 +13,7 @@ class MainPage:
     def __init__(self, browser: WebDriver) -> None:
         self.browser = browser
 
+
     @allure.feature("INPUT")
     @allure.step("Помещение товаров в корзину")
     def put_in_cart(self) -> None:

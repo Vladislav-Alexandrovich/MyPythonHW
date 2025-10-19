@@ -23,6 +23,7 @@ def driver():
     driver.quit()
 
 
+
 @allure.epic("Магазин Saucedemo")
 @allure.suite("Тесты на корректность оформления заказа")
 @allure.severity("blocker")

@@ -12,6 +12,7 @@ class CartPage:
     def __init__(self, browser: WebDriver) -> None:
         self.browser = browser
 
+
     @allure.feature("SELECT")
     @allure.step("Переход в корзину")
     def checkout(self) -> None:

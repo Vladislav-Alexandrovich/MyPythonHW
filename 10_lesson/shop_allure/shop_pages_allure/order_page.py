@@ -28,6 +28,7 @@ class OrderPage:
         self.browser.find_element(By.CSS_SELECTOR,
                                   "#continue").click()
 
+
     @allure.feature("GET")
     @allure.step("Получение суммы заказа")
     def get_total_price(self) -> float:
