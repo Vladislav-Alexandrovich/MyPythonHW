@@ -12,6 +12,7 @@ from string_utils import StringUtils
         ("привет класс", "Привет класс")
     ]
 )
+
 def test_capitalize_positive(input_text, expected_output):
     processor = StringUtils()
     assert processor.capitalize(input_text) == expected_output
