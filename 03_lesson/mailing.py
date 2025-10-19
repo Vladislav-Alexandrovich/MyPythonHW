@@ -1,4 +1,3 @@
-from address import Address
 
 
 class Mailing:
