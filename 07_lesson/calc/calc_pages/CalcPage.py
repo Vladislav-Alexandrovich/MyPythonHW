@@ -38,7 +38,7 @@ class CalcPage:
         # self.browser.find_element(By.XPATH, "//span[text()='=']").click()
 
     def get_result(self, term, term2):
-        waiter = WebDriverWait(self.browser, term)
+        waiter = WebDriverWait(self.browser, term + 3)
         waiter.until(EC.text_to_be_present_in_element(
             (By.CSS_SELECTOR, '[class="screen"]'), term2))
 

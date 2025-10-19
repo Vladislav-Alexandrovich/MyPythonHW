@@ -9,6 +9,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 
 from calc_pages_allure.CalcPage import CalcPage
 
+
 @pytest.fixture
 def driver() -> None:
     driver = webdriver.Firefox()

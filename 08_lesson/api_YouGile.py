@@ -2,7 +2,6 @@ import requests
 
 class YouGile:
     def __init__(self, url, login=None, password=None, companyId=None):
-        self.url = url
 
     # response_data = resp.json()
     # if 'key' not in response_data:

@@ -14,7 +14,6 @@ class AuthPage:
     def __init__(self, browser: WebDriver) -> None:
         self.browser = browser
 
-
     @allure.feature("INPUT")
     @allure.step("Ввод данных для логинизациии логин {term1}"
                  "пароль {term2}")
